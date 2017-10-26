@@ -1,0 +1,7 @@
+build
+.gradle
+README.html
+*.iml
+.idea
+/src/test/
+/*.pem
