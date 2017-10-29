@@ -169,7 +169,7 @@ Your school credentials are stored locally on your phone, and your password is e
 
 
 
-### Currently supported schools:
+## Currently supported schools:
 - UBC
 
 More schools are coming soon!
