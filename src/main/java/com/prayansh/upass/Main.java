@@ -15,7 +15,7 @@ public class Main {
     }
 
     @Bean
-    public RenewService restTemplate() {
+    public RenewService renewServiceTemplate() {
         return new RenewService();
     }
 }

@@ -2,72 +2,161 @@
 
 The background REST Service for renewing your UPass.
 
+
+## Prerequisites
+- Java & JDK
+- [Process Variables](https://www.schrodinger.com/kb/1842):
+    - `PRIVATE_KEY`: The private key for your application (keep this safe)
+    - `SECRET`: The secret key used to shutdown the job pool 
+ 
 ## Build
  ```shell
  gradle build
- ```
+ ``` 
  
-## Run the server
+## Run the server as is
  ```shell
  gradle bootRun
  ```
  You will be able to find the server running at [https://localhost:8080]
  
-## About the service
+## API Specifications
 
-Here are the endpoints you can call:
+**Get API Version**
+----
+  Get the API version number
 
-### Get information about jobs, create jobs and shutdown the queue.
+* **URL**
 
-```
-http://localhost:8080/api
-http://localhost:8080/api/get
-http://localhost:8080/api/renew
-http://localhost:8080/api/shutdown
-```
+  /api
 
-### Get API version
+* **Method:**
 
-```
-GET /api/
+  `GET`
 
-RESPONSE: HTTP 202 (Accepted)
-{
-    "version" : <current-api-version>
-}
-```
+* **Success Response:**
 
-### Create a renew job
+  * **Code:** 200 <br />
+    **Content:** `{ version : 2 }`
+ 
+**Submit a renew job**
+----
+  Create a new renew job
 
-```
-POST /api/renew
-username: Username encrypted with public key
-password: Password encrypted with public key
+* **URL**
 
-RESPONSE: HTTP 202 (Accepted)
-{
-    "jobId" : <UUID>,
-    "status" : "RUNNING"
-}
-```
+  /api/renew
 
-### Get Job Status
+* **Method:**
 
-```
-GET /api/get
-id: jobId
+  `POST`
+  
+*  **URL Header Params**
 
-RESPONSE: HTTP 202 (Accepted)
-{
-    "jobId" : <UUID>,
-    "status" : "RUNNING"
-}
-```
+   **Required:**
+ 
+   `username=[string encrypted with public key]`
+   `password=[string encrypted with public key]`
+   `school=[string]`
 
-### Shutdown
 
-```
-GET /api/shutdown
+* **Data Params**
 
-RESPONSE: HTTP 202 (Accepted)
-```
+  None
+
+* **Success Response:**
+
+  * **Code:** 202 ACCEPTED <br />
+    **Content:** 
+    `{"status": "RUNNNING", "jobId": "7045f3a0-dbc4-40cc-bef8-88523afeedc9"}`
+    
+  OR
+  
+  * **Code:** 208 ALREADY_REPORTED <br />
+      **Content:** `{ response : "Job already submitted" }`
+
+ 
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error : "Username is encrypted incorrectly" }`
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+      **Content:** `{ error : "Password is encrypted incorrectly" }`
+
+* **Notes:**
+    
+   The jobId returned can be used to retrieve the status of the job later
+
+**Get job status**
+----
+  Get the job status
+
+* **URL**
+
+  /api/get
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Header Params**
+
+   **Required:**
+ 
+   `id=[string]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    `{"status": "NOTHING_TO_RENEW", "jobId": "7045f3a0-dbc4-40cc-bef8-88523afeedc9"}`
+  
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "No Job found" }`
+
+
+**Shutdown job pool**
+----
+  Get the job status
+
+* **URL**
+
+  /api/shutdown
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Header Params**
+
+   **Required:**
+ 
+   `key=[string]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    `{"result": "Job pool shutdown"}`
+  
+* **Error Response:**
+
+  * **Code:** 403 FORBIDDEN <br />
+    **Content:** `{ error : "That is the incorrect key" }`
+    
+* **Notes:**
+    
+   This is just in case the server goes out of memory

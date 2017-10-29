@@ -32,7 +32,7 @@ public class RenewServiceController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<Object> index() {
         logger.info("\"/\": called");
-        return new ResponseEntity<>(Util.simpleKVP("version", "1.0"), HttpStatus.OK);
+        return new ResponseEntity<>(Util.simpleKVP("version", String.valueOf(2)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/renew", method = RequestMethod.POST, produces = "application/json")
@@ -74,7 +74,7 @@ public class RenewServiceController {
         if (job == null) {
             return new ResponseEntity<>(Util.simpleKVP("error", "No job found"), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(job, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(job, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/shutdown", method = RequestMethod.GET)
@@ -82,7 +82,7 @@ public class RenewServiceController {
         logger.info("\"/shutdown\": called");
         if (key.equalsIgnoreCase(Util.readConfigVar("SECRET"))) {
             renewService.shutdown();
-            return new ResponseEntity<>(Util.simpleKVP("result", "Job pool shutdown"), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(Util.simpleKVP("result", "Job pool shutdown"), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(Util.simpleKVP("error", "That is the incorrect key"), HttpStatus.FORBIDDEN);
         }
