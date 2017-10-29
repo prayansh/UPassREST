@@ -1,6 +1,10 @@
 # UPass Renew Service
 
 The background REST Service for renewing your UPass.
+It is currently hosted [here](https://upass-renew.herokuapp.com/)
+
+## How it works
+Your credentials are not logged and are encrypted using a public key and decrypted by the server using the accompanying private key.
 
 
 ## Prerequisites
@@ -160,3 +164,43 @@ The background REST Service for renewing your UPass.
 * **Notes:**
     
    This is just in case the server goes out of memory
+
+Your school credentials are stored locally on your phone, and your password is encrypted before being saved, so only RenewPass can see it.
+
+
+
+### Currently supported schools:
+- UBC
+
+More schools are coming soon!
+
+## Contributing
+Pull requests and issues are welcome.
+
+## Shoutout
+Huge shoutout to [Coffeeboys](https://github.com/Coffeeboys) for their [Android App](https://github.com/Coffeeboys/RenewPass)
+
+## License
+```
+The MIT License (MIT)
+
+Copyright (c) 2016 Coffeeboys
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
