@@ -184,7 +184,7 @@ Huge shoutout to [Coffeeboys](https://github.com/Coffeeboys) for their [Android 
 ```
 The MIT License (MIT)
 
-Copyright (c) 2016 Prayansh Srivastava
+Copyright (c) 2017 Prayansh Srivastava
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
