@@ -40,7 +40,6 @@ public class RenewServiceController {
                                         @RequestHeader(value = "password") String password,
                                         @RequestHeader(value = "school") String school) {
         logger.info("\"/renew\": called");
-        logger.info("Params: username=" + username + ", password=" + password + ", school=" + school);
         CryptUtils crypt = new CryptUtils();
         String decryptedUsername, decryptedPassword;
         try {
@@ -67,9 +66,8 @@ public class RenewServiceController {
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Object> renew(@RequestHeader(value = "id") String id) {
+    public ResponseEntity<Object> get(@RequestHeader(value = "id") String id) {
         logger.info("\"/get\": called");
-        logger.info("Params: id=" + id);
         RenewJob job = renewService.getJob(id);
         if (job == null) {
             return new ResponseEntity<>(Util.simpleKVP("error", "No job found"), HttpStatus.BAD_REQUEST);
